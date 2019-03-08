@@ -7,8 +7,10 @@
 //
 
 #import "ViewController.h"
+#import <SAMKeychain.h>
 
 @interface ViewController ()
+@property (weak, nonatomic) IBOutlet UILabel *label;
 
 @end
 
@@ -18,6 +20,20 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
 }
+- (IBAction)get:(id)sender {
+    
+    NSString *str = [SAMKeychain passwordForService:@"pss_Service" account:@"pss_account"];
+    self.label.text = str;
+}
 
+- (IBAction)didSelected:(id)sender {
+    
+    [SAMKeychain setPassword:@"pss_passwork" forService:@"pss_Service" account:@"pss_account"];
+    
+}
+- (IBAction)delete:(id)sender {
+    
+    [SAMKeychain deletePasswordForService:@"pss_Service" account:@"pss_account"];
+}
 
 @end
